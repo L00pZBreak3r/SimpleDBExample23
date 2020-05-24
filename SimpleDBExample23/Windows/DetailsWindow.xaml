@@ -1,0 +1,41 @@
+﻿<Window x:Class="SimpleDBExample23.Windows.DetailsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SimpleDBExample23.Windows"
+        mc:Ignorable="d"
+        Title="{Binding Path=WindowTitle, Mode=OneWay}" Height="450" Width="800" WindowStartupLocation="CenterOwner">
+  <Window.Resources>
+    <Style TargetType="{x:Type Button}" x:Key="EditButtonStyle">
+      <Setter Property="Width" Value="50"/>
+      <Setter Property="Margin" Value="0, 0, 10, 0"/>
+    </Style>
+    <Style TargetType="{x:Type ComboBox}" x:Key="SearchComboBoxStyle">
+      <Setter Property="Width" Value="500"/>
+    </Style>
+  </Window.Resources>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+
+    <ListView ItemsSource="{Binding Path=RelativeList, Mode=OneWay}" SelectedItem="{Binding Path=CurrentPerson}">
+      <ListView.View>
+        <GridView>
+          <GridViewColumn Header="Фамилия" DisplayMemberBinding="{Binding Path=LastName, Mode=OneWay}" />
+          <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding Path=FirstName, Mode=OneWay}" />
+          <GridViewColumn Header="Отчество" DisplayMemberBinding="{Binding Path=MiddleName, Mode=OneWay}" />
+          <GridViewColumn Header="Дата рождения" DisplayMemberBinding="{Binding Path=BirthDate, StringFormat='dd.MM.yyyy', Mode=OneWay}" />
+          <GridViewColumn Header="Адрес" DisplayMemberBinding="{Binding Path=Address, Mode=OneWay}" />          
+        </GridView>
+      </ListView.View>
+    </ListView>
+    <StackPanel Grid.Row="1" Orientation="Horizontal">
+      <Button Style="{StaticResource EditButtonStyle}" Click="ButtonAdd_Click">Add</Button>
+      <Button Style="{StaticResource EditButtonStyle}" Click="ButtonDelete_Click">Delete</Button>
+      <ComboBox ItemsSource="{Binding Path=PersonList, Mode=OneWay}" SelectedItem="{Binding Path=SelectedPerson}" Style="{StaticResource SearchComboBoxStyle}" />
+    </StackPanel>
+  </Grid>
+</Window>
